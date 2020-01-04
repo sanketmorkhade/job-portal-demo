@@ -1,0 +1,6 @@
+th, td { 
+  min-width: 100px;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

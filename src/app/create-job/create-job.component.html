@@ -1,0 +1,108 @@
+<div class="container w-50 h-100 p-3">
+	<div class="card w-100 h-100">
+		<div class="card-body w-100 h-100">
+			<div style="height: 50px;">
+				<div class="d-flex flex-row justify-content-between">
+          <h5 class="card-title">Post Job</h5>
+          <span (click)="closeAddWindowFunc()">x</span>
+				</div>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [style.width]="sliderIndex * 33.33 + '%'"></div>
+        </div>
+			</div>
+			<div style="height: calc(100% - 50px)">
+				<div class="container w-100 h-100 oh p-3">
+					<div class="container w-100 oh p-3" style="height: calc(100% - 50px)">
+						<form [formGroup]="jobPostForm" class="h-100 w-100">
+							<div class="h-100 d-flex flex-row anim" style="width: 400%;" [style.transform]="'translateX(' + (sliderIndex * -25) + '%)' ">
+								<div class="h-100 w-25 px-5" formGroupName="companyDetails">
+                  <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'job_title')}" formControlName="job_title" id="jobTitle">
+                    <div class="invalid-feedback">Please provide valid job title.</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'company_name')}" formControlName="company_name" id="companyName">
+                    <div class="invalid-feedback">Please provide valid company name.</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cityLoc">Location</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'location')}" formControlName="location" id="cityLoc">
+                    <div class="invalid-feedback">Please provide valid location.</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'state')}" formControlName="state" id="state">
+                    <div class="invalid-feedback">Please provide valid state.</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'country')}" formControlName="country" id="country">
+                    <div class="invalid-feedback">Please provide valid country.</div>
+                  </div>
+                </div>
+								<div class="h-100 w-25 px-5" formGroupName="jobDetails">
+                  <div class="form-group my-3">
+                    <label for="inputState">Job Type</label>
+                    <select id="inputState" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('jobDetails', 'job_type')}" formControlName="job_type">
+                      <option *ngFor="let type of jobTypeArr; let t = index">{{type}}</option>
+                    </select>
+                    <div class="invalid-feedback">Please provide valid job type.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="validationTextarea">Job Description</label>
+                    <textarea class="form-control" rows="12" [ngClass]="{'is-invalid': checkValidationFunc('jobDetails', 'job_description')}" formControlName="job_description" id="validationTextarea" placeholder="Describe the job roles, responsibilities, required experience, skills and education." required></textarea>
+                    <div class="invalid-feedback">Please provide valid job description.</div>
+                  </div>
+                </div>
+								<div class="h-100 w-25 px-5" formGroupName="experienceDetails">
+                  <div class="form-group my-3 d-flex flex-row justify-content-between align-items-center">
+                    <label for="experience">Experience related question</label>
+                    <button class="btn btn-outline-secondary" type="button" [disabled]="sliderIndex !== 2" (click)="addQuestionFunc()" id="button-addon2">Add</button>
+                  </div>
+
+                  <div class="w-100 oh" style="max-height: 250px; overflow-y: auto;">
+                    <div formArrayName="experience" *ngFor="let item of jobPostForm.get('experienceDetails').get('experience').controls; let e = index;">
+                      <div [formGroupName]="e">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="experience{{e}}" formControlName="question" placeholder="Question">
+                          <div class="input-group-append">
+                            <button class="btn btn-danger" type="button" [disabled]="sliderIndex !== 2" (click)="removeQuestionFunc(e)" id="button-remove{{e}}">Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group my-3">
+                    <label for="education">Education</label>
+                    <select id="education" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('experienceDetails', 'education')}" formControlName="education">
+                      <option *ngFor="let education of educationArr; let e = index">{{education}}</option>
+                    </select>
+                  </div>
+                </div>
+								<div class="h-100 w-25 px-3" style="overflow-y: auto;">
+                  <div class="h-100 w-100">
+                    <div class="card mb-3" *ngFor="let card of cardViewArr;">
+                      <div class="card-body">
+                        <h5 class="card-title fs-15">{{card.title}}</h5>
+                        <p class="card-text fs-14" *ngIf="card.type != 'object'">{{card.value}}</p>
+                        <ng-container *ngIf="card.type == 'object'">
+                          <p class="card-text fs-14" *ngFor="let exp of card.value">{{exp.question}}</p>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+							</div>
+						</form>
+					</div>
+          <div class="d-flex flex-row justify-content-between align-items-end" style="height: 50px;">
+						<button type="button" class="btn btn-danger" style="height: 40px;" (click)="slideFunc(-1)" [disabled]="sliderIndex === 0">Back</button>
+						<button type="button" class="btn btn-primary" style="height: 40px;" (click)="slideFunc(1)">{{(sliderIndex < 3) ? 'Next' : action == 'add' ? 'Post' : 'Update'}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
