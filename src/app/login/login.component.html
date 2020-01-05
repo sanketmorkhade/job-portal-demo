@@ -1,6 +1,6 @@
 <div class="container w-100 h-100 d-flex flex-column justify-content-center align-items-center">
   <div class="card" style="width: 35%;" *ngIf="mode == 'login'">
-    <div class="card-header text-center">Login As a Recruiter</div>
+    <div class="card-header text-center">Login As a {{userType == 1 ? 'Recruiter' : 'Employee'}}</div>
     <div class="card-body">
       <form #loginForm="ngForm" (ngSubmit)="loginUserFunc(loginForm)">
         <div class="form-group">
@@ -23,7 +23,7 @@
 
   <div class="card" style="width: 35%;" *ngIf="mode == 'signup'">
     <div class="card-header text-center">
-      Signup As a Recruiter
+      Signup As a {{userType == 1 ? 'Recruiter' : 'Employee'}}
     </div>
     <div class="card-body">
       <form #signForm="ngForm" (ngSubmit)="signupUserFunc(signForm)">
