@@ -26,6 +26,10 @@ export class AuthenticateGuard implements CanActivate {
           return false;
         }
       }
+      // else if(state && state.url && state.url == "/login") {
+      //   this.router.navigate(["jobs"]);
+      //   return false;
+      // }
       else {
         return true;
       }

@@ -49,4 +49,9 @@ export class LoginSignupService {
     }
   }
 
+  logoutUserFunc() {
+    localStorage.removeItem('currentUserData');
+    return new Promise((res, err) => res({status: true, msg: 'Your are successfully logout.'}))
+  }
+
 }
