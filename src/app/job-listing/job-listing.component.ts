@@ -1,19 +1,29 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginSignupService } from "../login-signup.service";
 import { Router } from "@angular/router";
+import { ngxCsv } from "ngx-csv/ngx-csv";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: "app-job-listing",
   templateUrl: "./job-listing.component.html",
-  styleUrls: ["./job-listing.component.css"]
+  styleUrls: ["./job-listing.component.css"],
+  providers: [DatePipe]
 })
 export class JobListingComponent implements OnInit {
-  constructor(private loginSignup: LoginSignupService, private router: Router) {}
+  constructor(
+    private loginSignup: LoginSignupService,
+    private router: Router,
+    private datePipe: DatePipe
+  ) {}
 
   jobArr = new Array(20);
   currentUser: any = {};
   sortKey = "updated_on";
   ascendingOrder = false;
+  showJobDetailFlag = false;
+  viewJobObj: any = {};
+  query = '';
 
   ngOnInit() {
     this.currentUser = JSON.parse(this.loginSignup.loggedInUserDataFunc());
@@ -51,37 +61,58 @@ export class JobListingComponent implements OnInit {
   }
 
   getClassFunc(iKey) {
-    if(this.sortKey == iKey && !this.ascendingOrder) {
-      return {"arrow-up": true}
-    }
-    else if(this.sortKey == iKey && this.ascendingOrder) {
-      return {"arrow-down": true}
-    }
-    else {
+    if (this.sortKey == iKey && !this.ascendingOrder) {
+      return { "arrow-up": true };
+    } else if (this.sortKey == iKey && this.ascendingOrder) {
+      return { "arrow-down": true };
+    } else {
       return {};
     }
   }
-  
+
   orderByFunc(iEvent) {
     let key = this.getSortKeyFunc(iEvent);
-    console.log(key);
-    if(key) {
-      this.ascendingOrder = (this.sortKey != key) ? true : !this.ascendingOrder;
+    if (key) {
+      this.ascendingOrder = this.sortKey != key ? true : !this.ascendingOrder;
       this.sortKey = iEvent.target.dataset.heading;
-
     }
   }
 
   getSortKeyFunc(iEvent) {
     const [a, b] = iEvent.path;
-    if(a && a.tagName == "SPAN") {
+    if (a && a.tagName == "SPAN") {
       return b.dataset.heading;
-    }
-    else if(a) {
+    } else if (a) {
       return a.dataset.heading;
-    }
-    else {
+    } else {
       return null;
     }
+  }
+
+  showDetailFunc(iObj, iFlag) {
+    this.viewJobObj = iObj;
+    this.showJobDetailFlag = iFlag;
+  }
+
+  exportJobFunc() {
+    var options = {
+      headers: ["Job Id", "Job Title", "Company Name", "Location", "State", "Country", "Job Type", "Job Description", "Eduction", "Posted On"]
+    };
+    let jobArr = [];
+    let requiredKeys = ["job_id", "job_title", "company_name", "location", "state", "country", "job_type", "job_description", "education", "created_on"];
+    for(let job of this.jobArr) {
+      let obj: any = {};
+      for(let key of requiredKeys) {
+        let date = new Date(job[key]);
+        if(date.toString() === 'Invalid Date' || key == 'job_id') {
+          obj[key] = job[key];
+        }
+        else {
+          obj[key] = this.datePipe.transform(new Date(job[key]), 'dd/MM/yyyy, hh:mm a');
+        }
+      }
+      jobArr.push(obj);
+    }
+    new ngxCsv(jobArr, "My Posted Jobs", options);
   }
 }

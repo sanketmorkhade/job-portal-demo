@@ -22,14 +22,15 @@ export class AppComponent {
   }
 
   logoutFunc() {
-    let reply = this.loginSignup.logoutUserFunc();
-    reply.then(
-      (iData: any) => {
-        alert(iData.msg);
-        this.checkLoginStatusFunc();
-        this.router.navigate(['login']);
-      }
-    )
+    if(confirm("Are you sure, you want to logout ?")) {
+      let reply = this.loginSignup.logoutUserFunc();
+      reply.then(
+        (iData: any) => {
+          this.checkLoginStatusFunc();
+          this.router.navigate(['login']);
+        }
+      )
+    }
   }
 
   checkLoginStatusFunc() {

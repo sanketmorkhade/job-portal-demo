@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 @Component({
@@ -38,8 +38,11 @@ export class CreateJobComponent implements OnInit {
   };
   cardViewArr = [];
   action = "add";
+  jobArr = [];
+  titleError = '';
 
   ngOnInit() {
+    this.fetchJobsFunc();
     this.postNewJobFunc();
     let editData = this.getLSDataFunc();
     if (editData) {
@@ -56,7 +59,7 @@ export class CreateJobComponent implements OnInit {
   postNewJobFunc() {
     this.jobPostForm = this.fb.group({
       companyDetails: this.fb.group({
-        job_title: [{ value: "", disabled: false }, Validators.required],
+        job_title: [{ value: "", disabled: false }, [Validators.required, this.ValidateTitle]],
         company_name: [{ value: "", disabled: false }, Validators.required],
         location: [{ value: "", disabled: false }, Validators.required],
         state: [{ value: "", disabled: false }, Validators.required],
@@ -106,6 +109,34 @@ export class CreateJobComponent implements OnInit {
     });
   }
 
+  
+  ValidateTitle = (control: AbstractControl) => {
+    if(this.jobArr && this.jobArr.length){
+      let titleAlreadyExistFlag = this.jobArr.some(j => j.job_title.toString().toLowerCase() == control.value.toString().toLowerCase());
+      if (titleAlreadyExistFlag) {
+        return { validTitle: true };
+      }
+    }
+    return null;
+  }
+
+  getErrorMsgForTitleFunc(iGroup, iControl) {
+    let control = this.jobPostForm.get(iGroup).get(iControl);
+    if(control && control.errors) {
+      return control.errors.required ? "Please provide valid job title." : control.errors.validTitle ? "Job title with same name already exist" : '';
+    }
+    return '';
+  }
+
+  fetchJobsFunc() {
+    let previousData = localStorage.getItem("postedJobs");
+    if (previousData) {
+      this.jobArr = JSON.parse(previousData);
+    } else {
+      this.jobArr = [];
+    }
+  }
+
   slideFunc(iIndex) {
     let canSlide = false;
     if (iIndex == 1) {
@@ -142,7 +173,6 @@ export class CreateJobComponent implements OnInit {
     for (let key in group.controls) {
       group.controls[key][iFlag ? "enable" : "disable"]();
     }
-    // group[iFlag ? 'enable' : 'disable']();
   }
 
   validStatusFunc(iGroup) {

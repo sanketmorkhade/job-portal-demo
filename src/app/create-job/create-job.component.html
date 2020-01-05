@@ -17,11 +17,11 @@
 					<div class="container w-100 oh p-3" style="height: calc(100% - 50px)">
 						<form [formGroup]="jobPostForm" class="h-100 w-100">
 							<div class="h-100 d-flex flex-row anim" style="width: 400%;" [style.transform]="'translateX(' + (sliderIndex * -25) + '%)' ">
-								<div class="h-100 w-25 px-5" formGroupName="companyDetails">
+								<div class="h-100 w-25 px-5 overflow-auto" formGroupName="companyDetails">
                   <div class="form-group">
                     <label for="jobTitle">Job Title</label>
                     <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'job_title')}" formControlName="job_title" id="jobTitle">
-                    <div class="invalid-feedback">Please provide valid job title.</div>
+                    <div class="invalid-feedback">{{getErrorMsgForTitleFunc('companyDetails', 'job_title')}}</div>
                   </div>
                   <div class="form-group">
                     <label for="companyName">Company Name</label>

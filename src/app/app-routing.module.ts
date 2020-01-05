@@ -7,9 +7,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { JobListingComponent } from './job-listing/job-listing.component';
 import { CreateJobComponent } from './create-job/create-job.component';
+import { JobDetailViewComponent } from './job-detail-view/job-detail-view.component';
 
 import { AuthenticateGuard } from './authenticate.guard';
 import { OrderByPipe } from './order-by.pipe';
+import { SearchPipe } from './search.pipe';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home'},
@@ -23,7 +25,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), CommonModule, FormsModule, ReactiveFormsModule ],
-  declarations: [ HomePageComponent, LoginComponent, JobListingComponent, CreateJobComponent, OrderByPipe ],
+  declarations: [ HomePageComponent, LoginComponent, JobListingComponent, CreateJobComponent, OrderByPipe, JobDetailViewComponent, SearchPipe ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

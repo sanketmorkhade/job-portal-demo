@@ -1,0 +1,23 @@
+<div style="height: 50px;">
+  <div class="w-100 h-100 d-flex flex-row" [ngClass]="{'justify-content-between': currentUser.user_type == 2}">
+    <button type="button" class="btn btn-primary" style="height: 38px;" (click)="closeDetialViewFunc();">Back</button>
+    <button type="button" class="btn btn-primary" style="height: 38px;" (click)="applyForPostFunc();" *ngIf="currentUser.user_type == 2">Apply</button>
+  </div>
+</div>
+<div style="height: calc(100% - 50px)">
+  <div class="h-100 w-100 py-3" style="overflow-y: auto;">
+    <div class="h-100 w-100">
+      <ng-container *ngFor="let card of cardViewArr;">
+        <div class="card mb-3" *ngIf="card.title">
+          <div class="card-body">
+            <h5 class="card-title fs-15">{{card.title}}</h5>
+            <p class="card-text fs-14" *ngIf="card.type != 'object'">{{card.value}}</p>
+            <ng-container *ngIf="card.type == 'object'">
+              <p class="card-text fs-14" *ngFor="let exp of card.value">{{exp.question}}</p>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

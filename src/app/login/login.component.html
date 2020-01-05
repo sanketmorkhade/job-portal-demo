@@ -3,7 +3,7 @@
     <button type="submit" class="btn btn-white text-primary p-0 mb-3" (click)="backToHomeFunc()">Back to home</button> 
   </div>
   <div class="card" style="width: 35%;" *ngIf="mode == 'login'">
-    <div class="card-header text-center">Login As a {{userType == 1 ? 'Recruiter' : 'Employee'}}</div>
+    <div class="card-header text-center">Login As a {{userType == 1 ? 'Recruiter' : 'Candidate'}}</div>
     <div class="card-body">
       <form #loginForm="ngForm" (ngSubmit)="loginUserFunc(loginForm)">
         <div class="form-group">
