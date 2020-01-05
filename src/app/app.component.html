@@ -1,8 +1,8 @@
 <div class="container-fluid p-0" style="height: 60px;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary d-flex flex-row justify-content-between">
     <span class="navbar-brand">Job Portal Demo</span>
-    <div class="d-flex" *ngIf="userStatus">
-      <span class="nav-link ">Home</span>
+    <div class="d-flex" *ngIf="userObj">
+      <span class="nav-link text-light">{{userObj.user_id}}</span>
       <button class="btn btn-outline-light my-2 my-sm-0" type="button" (click)="logoutFunc()">Logout</button>
     </div>
   </nav>

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginSignupService } from './login-signup.service';
 import { AuthenticateGuard } from './authenticate.guard';
+import { NotifyService } from './notify.service';
 
 @NgModule({
   imports:      [
@@ -15,6 +16,6 @@ import { AuthenticateGuard } from './authenticate.guard';
     ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [LoginSignupService, AuthenticateGuard]
+  providers: [LoginSignupService, AuthenticateGuard, NotifyService]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginSignupService } from "../login-signup.service";
 import { Router } from "@angular/router";
+import { NotifyService } from '../notify.service';
 
 @Component({
   selector: "app-login",
@@ -8,7 +9,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginSignup: LoginSignupService, private router: Router) {}
+  constructor(private loginSignup: LoginSignupService, private router: Router, private notifyService: NotifyService) {}
 
   mode = "login";
   userType = localStorage.getItem("loginMode");
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
           delete currentUserData.password;
           localStorage.setItem('currentUserData', JSON.stringify(currentUserData));
           this.router.navigate(['jobs']);
+          setTimeout(() => this.notifyService.notifyOther(true) ,50);
         },
         (iError: any) => {
           alert(iError.msg.message);

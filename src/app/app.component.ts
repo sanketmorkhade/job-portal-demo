@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { LoginSignupService } from "./login-signup.service";
 import { Router } from "@angular/router";
+import { NotifyService } from './notify.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "my-app",
@@ -8,9 +10,12 @@ import { Router } from "@angular/router";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  constructor(  private loginSignup: LoginSignupService, private router: Router ) { }
+  constructor(  private loginSignup: LoginSignupService, private router: Router, private notifyService: NotifyService ) {
+    this.subscription = this.notifyService.channel().subscribe(message => { this.checkLoginStatusFunc(); });
+  }
 
-  userStatus;
+  userObj: any;
+  subscription: Subscription;
 
   ngOnInit() {
     this.checkLoginStatusFunc();
@@ -28,7 +33,13 @@ export class AppComponent {
   }
 
   checkLoginStatusFunc() {
-    this.userStatus = this.loginSignup.loggedInUserDataFunc();
+    let userStatus = this.loginSignup.loggedInUserDataFunc();
+    if(userStatus) {
+      this.userObj = JSON.parse(userStatus);
+    }
+    else {
+      this.userObj = null;
+    }
   }
   
 }
