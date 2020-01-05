@@ -6,7 +6,7 @@ export class LoginSignupService {
 
   userTypeObj = { 1: "recruiterData", 2: "employeeData" };
 
-  isUserLoggedInFunc() {
+  loggedInUserDataFunc() {
     return localStorage.getItem('currentUserData');
   }
 

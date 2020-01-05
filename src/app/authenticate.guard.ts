@@ -12,7 +12,7 @@ export class AuthenticateGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    let currentUser = this.loginSignup.isUserLoggedInFunc();
+    let currentUser = this.loginSignup.loggedInUserDataFunc();
     console.log("state", state);
     console.log('next', next)
     if(currentUser){

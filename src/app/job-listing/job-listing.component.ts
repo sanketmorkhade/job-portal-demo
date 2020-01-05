@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { LoginSignupService } from "../login-signup.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -7,11 +8,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./job-listing.component.css"]
 })
 export class JobListingComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private loginSignup: LoginSignupService, private router: Router) {}
 
   jobArr = new Array(20);
+  currentUser: any = {};
 
   ngOnInit() {
+    this.currentUser = JSON.parse(this.loginSignup.loggedInUserDataFunc());
     this.fetchJobsFunc();
   }
 
