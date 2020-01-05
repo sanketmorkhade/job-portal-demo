@@ -12,8 +12,23 @@ export class AuthenticateGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.loginSignup.isUserLoggedInFunc()){
-      return true;
+    let currentUser = this.loginSignup.isUserLoggedInFunc();
+    console.log("state", state);
+    console.log('next', next)
+    if(currentUser){
+      if(state && state.url && state.url == '/createJob') {
+        let userObj = JSON.parse(currentUser);
+        if(userObj.user_type == 1) {
+          return true;
+        }
+        else {
+          this.router.navigate(["jobs"]);
+          return false;
+        }
+      }
+      else {
+        return true;
+      }
     }else{
       this.router.navigate(["login"]);
       return false;

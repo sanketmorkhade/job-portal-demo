@@ -7,7 +7,7 @@ export class LoginSignupService {
   userTypeObj = { 1: "recruiterData", 2: "employeeData" };
 
   isUserLoggedInFunc() {
-    return localStorage.getItem('currentUserData') != null;
+    return localStorage.getItem('currentUserData');
   }
 
   addNewUserFunc(iData) {
