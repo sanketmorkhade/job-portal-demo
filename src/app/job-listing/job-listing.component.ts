@@ -12,6 +12,8 @@ export class JobListingComponent implements OnInit {
 
   jobArr = new Array(20);
   currentUser: any = {};
+  sortKey = "updated_on";
+  ascendingOrder = false;
 
   ngOnInit() {
     this.currentUser = JSON.parse(this.loginSignup.loggedInUserDataFunc());
@@ -22,9 +24,6 @@ export class JobListingComponent implements OnInit {
     let previousData = localStorage.getItem("postedJobs");
     if (previousData) {
       this.jobArr = JSON.parse(previousData);
-      this.jobArr = this.jobArr.sort((a, b) => {
-        return a.updated_on > b.updated_on ? -1 : 1;
-      });
     } else {
       this.jobArr = [];
     }
@@ -48,6 +47,41 @@ export class JobListingComponent implements OnInit {
         localStorage.setItem("postedJobs", JSON.stringify(postedJobsArr));
       }
       this.fetchJobsFunc();
+    }
+  }
+
+  getClassFunc(iKey) {
+    if(this.sortKey == iKey && !this.ascendingOrder) {
+      return {"arrow-up": true}
+    }
+    else if(this.sortKey == iKey && this.ascendingOrder) {
+      return {"arrow-down": true}
+    }
+    else {
+      return {};
+    }
+  }
+  
+  orderByFunc(iEvent) {
+    let key = this.getSortKeyFunc(iEvent);
+    console.log(key);
+    if(key) {
+      this.ascendingOrder = (this.sortKey != key) ? true : !this.ascendingOrder;
+      this.sortKey = iEvent.target.dataset.heading;
+
+    }
+  }
+
+  getSortKeyFunc(iEvent) {
+    const [a, b] = iEvent.path;
+    if(a && a.tagName == "SPAN") {
+      return b.dataset.heading;
+    }
+    else if(a) {
+      return a.dataset.heading;
+    }
+    else {
+      return null;
     }
   }
 }

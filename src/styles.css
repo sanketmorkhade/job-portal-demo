@@ -15,3 +15,25 @@ textarea { resize: none !important; }
 .fw500 { font-weight: 500 !important; }
 
 .mt10 { margin-top: 10px !important; }
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #ffffff;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ffffff;
+}
+
+.arrow-position {
+  position: absolute;
+  top: 24px;
+  right: 100px;
+}

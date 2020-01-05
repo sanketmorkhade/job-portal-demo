@@ -9,6 +9,7 @@ import { JobListingComponent } from './job-listing/job-listing.component';
 import { CreateJobComponent } from './create-job/create-job.component';
 
 import { AuthenticateGuard } from './authenticate.guard';
+import { OrderByPipe } from './order-by.pipe';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home'},
@@ -22,7 +23,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes), CommonModule, FormsModule, ReactiveFormsModule ],
-  declarations: [ HomePageComponent, LoginComponent, JobListingComponent, CreateJobComponent ],
+  declarations: [ HomePageComponent, LoginComponent, JobListingComponent, CreateJobComponent, OrderByPipe ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

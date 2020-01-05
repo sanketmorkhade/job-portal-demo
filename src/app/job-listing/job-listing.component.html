@@ -1,47 +1,65 @@
-<div class="w-100 h-100 container p-3">
-  <div style="height: 50px;">
-    <button type="button" class="btn btn-primary mb-3" *ngIf="currentUser.user_type == 1" (click)="postJobFunc()">Post Job</button>
-  </div>
-  <div style="height: calc(100% - 50px)">
-    <div class="w-100 h-100 table-responsive">
-      <table class="table table-striped" #stickyheader>
-        <thead class="thead-dark">
-          <tr>
-            <th>Job</th>
-            <th>Location</th>
-            <th>Posted</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let job of jobArr; let j = index;">
-            <th><h5 class="fs-15 fw400 mt10">{{job.job_title}}</h5></th>
-            <td><h5 class="fs-15 fw400 mt10">{{job.location}}</h5></td>
-            <td><h5 class="fs-15 fw400 mt10">{{job.created_on | date:'dd/MM/yyyy'}}</h5></td>
-            <td>
-              <div>
-                <select class="form-control">
-                  <option value="Open">Open</option>
-                  <option value="Close">Close</option>
-                </select>
-              </div>
-            </td>
-            <td>
-              <ng-container *ngIf="currentUser.user_type == 1">
-                <button type="button" class="btn btn-primary" (click)="editJobFunc(job)">Edit</button>
-                <button type="button" class="btn btn-danger ml-3" (click)="deleteJobFunc(j)">Delete</button>
-              </ng-container>
-              <ng-container *ngIf="currentUser.user_type == 2">
-                <button type="button" class="btn btn-primary" (click)="editJobFunc(job)">Apply</button>
-              </ng-container>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="w-100 h-75 d-flex flex-row justify-content-center align-items-center" *ngIf="jobArr && !jobArr.length">
-        <h5 class="fs-15">No job listed.</h5>
-      </div>
-    </div>
-  </div>
+<div class="w-100 h-100 container-fluid py-3 px-5">
+	<div style="height: 50px;">
+		<button type="button" class="btn btn-primary mb-3" *ngIf="currentUser.user_type == 1" (click)="postJobFunc()">Post Job</button>
+	</div>
+	<div style="height: calc(100% - 50px)">
+		<div class="w-100 h-100 table-responsive">
+			<table class="table table-striped" #stickyheader>
+				<thead class="thead-dark">
+					<tr (click)="orderByFunc($event)">
+						<th class="position-relative" [attr.data-heading]="'job_title'">Job
+							<span class="arrow-position" [ngClass]="getClassFunc('job_title')"></span> </th>
+						<th class="position-relative" [attr.data-heading]="'location'">Location
+							<span class="arrow-position" [ngClass]="getClassFunc('location')"></span></th>
+						<th class="position-relative" [attr.data-heading]="'created_on'">Posted
+							<span class="arrow-position" [ngClass]="getClassFunc('created_on')"></span></th>
+						<th class="position-relative">Status</th>
+						<th class="position-relative">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let job of jobArr  | orderBy : sortKey : ascendingOrder ; let j = index;">
+						<th>
+							<h5 class="fs-15 fw400 mt10">{{job.job_title}}</h5>
+						</th>
+						<td>
+							<h5 class="fs-15 fw400 mt10">{{job.location}}</h5>
+						</td>
+						<td>
+							<h5 class="fs-15 fw400 mt10">{{job.created_on | date:'dd/MM/yyyy, hh:mm a'}}</h5>
+						</td>
+						<td>
+							<div>
+								<ng-container *ngTemplateOutlet="currentUser.user_type == 1 ? dynamic : static">
+								</ng-container>
+								<ng-template #dynamic>
+									<select class="form-control">
+                    <option value="Open">Open</option>
+                    <option value="Close">Close</option>
+                  </select>
+								</ng-template>
+								<ng-template #static>
+									<h5 class="fs-15 fw400 mt10">Open</h5>
+								</ng-template>
+							</div>
+						</td>
+						<td>
+							<ng-container *ngIf="currentUser.user_type == 1">
+								<button type="button" class="btn btn-primary" (click)="editJobFunc(job)">Edit</button>
+								<button type="button" class="btn btn-danger ml-3" (click)="deleteJobFunc(j)">Delete</button>
+							</ng-container>
+							<ng-container *ngIf="currentUser.user_type == 2">
+								<button type="button" class="btn btn-primary" (click)="editJobFunc(job)">Apply</button>
+							</ng-container>
+              <button type="button" class="btn btn-success ml-3" (click)="editJobFunc(job)">View</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="w-100 h-75 d-flex flex-row justify-content-center align-items-center"
+				*ngIf="jobArr && !jobArr.length">
+				<h5 class="fs-15">No job listed.</h5>
+			</div>
+		</div>
+	</div>
 </div>
