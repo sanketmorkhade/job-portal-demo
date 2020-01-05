@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginSignupService } from "../login-signup.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -7,7 +8,7 @@ import { LoginSignupService } from "../login-signup.service";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginSignup: LoginSignupService) {}
+  constructor(private loginSignup: LoginSignupService, private router: Router) {}
 
   mode = "login";
   userType = localStorage.getItem("loginMode");
@@ -28,6 +29,10 @@ export class LoginComponent implements OnInit {
       reply.then(
         (iData: any) => {
           alert(iData.msg);
+          let currentUserData = {...finalData};
+          delete currentUserData.password;
+          localStorage.setItem('currentUserData', JSON.stringify(currentUserData));
+          this.router.navigate(['jobs']);
         },
         (iError: any) => {
           alert(iError.msg.message);
