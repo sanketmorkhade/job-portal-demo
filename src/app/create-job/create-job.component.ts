@@ -40,6 +40,7 @@ export class CreateJobComponent implements OnInit {
   action = "add";
   jobArr = [];
   titleError = '';
+  editJobObj: any = {};
 
   ngOnInit() {
     this.fetchJobsFunc();
@@ -47,8 +48,8 @@ export class CreateJobComponent implements OnInit {
     let editData = this.getLSDataFunc();
     if (editData) {
       this.action = "edit";
-      let editJobObj = JSON.parse(editData);
-      this.editJobFunc(editJobObj);
+      this.editJobObj = JSON.parse(editData);
+      this.editJobFunc(this.editJobObj);
     }
   }
 
@@ -96,7 +97,7 @@ export class CreateJobComponent implements OnInit {
         experience: iData.experience,
         education: iData.education
       }
-    });
+    }); 
   }
 
   createQuestion(): FormGroup {
@@ -112,7 +113,9 @@ export class CreateJobComponent implements OnInit {
   
   ValidateTitle = (control: AbstractControl) => {
     if(this.jobArr && this.jobArr.length){
-      let titleAlreadyExistFlag = this.jobArr.some(j => j.job_title.toString().toLowerCase() == control.value.toString().toLowerCase());
+      let titleAlreadyExistFlag = this.jobArr.some(j => {
+        return j.job_id != this.editJobObj.job_id &&j.job_title.toString().toLowerCase() == control.value.toString().toLowerCase()
+      });
       if (titleAlreadyExistFlag) {
         return { validTitle: true };
       }
@@ -123,7 +126,7 @@ export class CreateJobComponent implements OnInit {
   getErrorMsgForTitleFunc(iGroup, iControl) {
     let control = this.jobPostForm.get(iGroup).get(iControl);
     if(control && control.errors) {
-      return control.errors.required ? "Please provide valid job title." : control.errors.validTitle ? "Job title with same name already exist" : '';
+      return control.errors.required ? "Please provide valid job title." : control.errors.validTitle ? "Job title with same name already exist." : '';
     }
     return '';
   }

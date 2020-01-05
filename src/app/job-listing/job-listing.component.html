@@ -4,8 +4,7 @@
       <div class="w-100 h-100 d-flex flex-row justify-content-between">
         <button type="button" class="btn btn-primary" style="height: 38px;" *ngIf="currentUser.user_type == 1" (click)="postJobFunc()">Post Job</button>
         <div class="container m-0 d-flex flex-row justify-content-between p-0" style="width: 30%;">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="query">
-          <button class="btn btn-primary my-2 my-sm-0" style="height: 38px;" type="submit">Search</button>
+          <input class="form-control mr-sm-2" type="search" placeholder="Search job" aria-label="Search" [(ngModel)]="query">
         </div>
         <button class="btn btn-primary ml-3" style="height: 38px;" type="submit" (click)="exportJobFunc()">Export to csv</button>
       </div>

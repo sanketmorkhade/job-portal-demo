@@ -34,6 +34,8 @@ export class JobListingComponent implements OnInit {
     let previousData = localStorage.getItem("postedJobs");
     if (previousData) {
       this.jobArr = JSON.parse(previousData);
+      this.sortKey = "updated_on";
+      this.ascendingOrder = true;
     } else {
       this.jobArr = [];
     }

@@ -90,6 +90,7 @@
                         <h5 class="card-title fs-15">{{card.title}}</h5>
                         <p class="card-text fs-14" *ngIf="card.type != 'object'">{{card.value}}</p>
                         <ng-container *ngIf="card.type == 'object'">
+                          <span *ngIf="card.value && !card.value.length">-</span>
                           <p class="card-text fs-14" *ngFor="let exp of card.value">{{exp.question}}</p>
                         </ng-container>
                       </div>
