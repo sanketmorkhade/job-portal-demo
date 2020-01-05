@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), CommonModule, ReactiveFormsModule ],
+  imports: [RouterModule.forRoot(routes), CommonModule, FormsModule, ReactiveFormsModule ],
   declarations: [ HomePageComponent, LoginComponent, JobListingComponent, CreateJobComponent ],
   exports: [RouterModule]
 })
