@@ -4,7 +4,9 @@
 			<div style="height: 50px;">
 				<div class="d-flex flex-row justify-content-between">
           <h5 class="card-title">Post Job</h5>
-          <span (click)="closeAddWindowFunc()">x</span>
+          <button type="button" class="close pb-2" title="Close" aria-label="Close"(click)="closeAddWindowFunc()">
+            <span aria-hidden="true">&times;</span>
+          </button>
 				</div>
         <div class="progress">
           <div class="progress-bar" role="progressbar" [style.width]="sliderIndex * 33.33 + '%'"></div>
