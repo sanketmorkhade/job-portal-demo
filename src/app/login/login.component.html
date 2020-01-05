@@ -1,21 +1,21 @@
 <div class="container w-100 h-100 d-flex flex-column justify-content-center align-items-center">
   <div class="card" style="width: 35%;" *ngIf="mode == 'login'">
-    <div class="card-header text-center">
-      Login As a Recruiter
-    </div>
+    <div class="card-header text-center">Login As a Recruiter</div>
     <div class="card-body">
-      <form>
+      <form #loginForm="ngForm" (ngSubmit)="loginUserFunc(loginForm)">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <label for="loginUserId">Email address</label>
+          <input type="email" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc(loginForm, 'user_id')}" name="user_id" ngModel id="loginUserId" required>
+          <div class="invalid-feedback">Please enter valid user id.</div>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <label for="loginPassword">Password</label>
+          <input type="password" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc(loginForm, 'password')}" name="password" ngModel id="loginPassword" required>
+          <div class="invalid-feedback">Please enter valid password.</div>
         </div>
         <div class="container p-0 mt-5 d-flex flex-column justify-content-between align-items-center">
           <button type="submit" class="btn btn-primary w-100">Log in</button>
-           <button type="submit" class="btn btn-white text-primary">Sign up</button>
+           <button type="submit" class="btn mt-3 btn-white text-primary" (click)="toggleFormFunc('signup')">Sign up</button>
         </div>
       </form>
     </div>
@@ -26,16 +26,26 @@
       Signup As a Recruiter
     </div>
     <div class="card-body">
-      <form>
+      <form #signForm="ngForm" (ngSubmit)="signupUserFunc(signForm)">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <label for="signupUserId">Email address</label>
+          <input type="email" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc(signForm, 'user_id')}" id="signupUserId" name="user_id" ngModel required>
+          <div class="invalid-feedback">Please enter valid user id.</div>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <label for="signupPassword">Password</label>
+          <input type="password" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc(signForm, 'password')}" id="signupPassword" name="password" ngModel required>
+          <div class="invalid-feedback">Please enter valid password.</div>
         </div>
-        <button type="submit" class="btn btn-primary">Sign up</button>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc(signForm, 'confirm_password')}" id="confirmPassword" name="confirm_password" ngModel required>
+          <div class="invalid-feedback">Please enter valid password.</div>
+        </div>
+        <div class="container p-0 mt-5 d-flex flex-column justify-content-between align-items-center">
+          <button type="submit" class="btn btn-primary w-100">Sign up</button>
+          <button type="submit" class="btn mt-3 btn-white text-primary" (click)="toggleFormFunc('login')">Back to Login</button>
+        </div>
       </form>
     </div>
   </div>
