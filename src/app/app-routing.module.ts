@@ -8,12 +8,14 @@ import { LoginComponent } from './login/login.component';
 import { JobListingComponent } from './job-listing/job-listing.component';
 import { CreateJobComponent } from './create-job/create-job.component';
 
+import { AuthenticateGuard } from './authenticate.guard';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home'},
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'jobs', component: JobListingComponent },
-  { path: 'createJob', component: CreateJobComponent },
+  { path: 'jobs', component: JobListingComponent, canActivate: [AuthenticateGuard] },
+  { path: 'createJob', component: CreateJobComponent, canActivate: [AuthenticateGuard] },
 
   {path: '**', pathMatch: 'full', redirectTo: '/home'}
 ];

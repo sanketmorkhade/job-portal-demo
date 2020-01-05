@@ -6,6 +6,10 @@ export class LoginSignupService {
 
   userTypeObj = { 1: "recruiterData", 2: "employeeData" };
 
+  isUserLoggedInFunc() {
+    return localStorage.getItem('currentUserData') != null;
+  }
+
   addNewUserFunc(iData) {
     let preData = localStorage.getItem(this.userTypeObj[iData.user_type]);
     if (preData) {
