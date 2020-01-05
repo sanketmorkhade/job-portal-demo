@@ -22,6 +22,8 @@
                 <span class="arrow-position" [ngClass]="getClassFunc('created_on')"></span></th>
               <th class="position-relative" [attr.data-heading]="'job_type'">Job Type
                 <span class="arrow-position" [ngClass]="getClassFunc('job_type')"></span></th>
+              <th class="position-relative" *ngIf="currentUser.user_type == 1" [attr.data-heading]="'applied_count'">Applied
+                <span class="arrow-position" [ngClass]="getClassFunc('applied_count')"></span></th>
               <th class="position-relative">Action</th>
             </tr>
           </thead>
@@ -39,13 +41,17 @@
               <td>
                 <h5 class="fs-15 fw400 mt10">{{job.job_type}}</h5>
               </td>
+              <td *ngIf="currentUser.user_type == 1">
+                <h5 class="fs-15 fw400 mt10">{{job.applied_count}}</h5>
+              </td>
               <td>
                 <ng-container *ngIf="currentUser.user_type == 1">
                   <button type="button" class="btn btn-primary" (click)="editJobFunc(job)">Edit</button>
                   <button type="button" class="btn btn-danger ml-3" (click)="deleteJobFunc(j)">Delete</button>
                 </ng-container>
                 <ng-container *ngIf="currentUser.user_type == 2">
-                  <button type="button" class="btn btn-primary" (click)="editJobFunc(job)">Apply</button>
+                  <button type="button" class="btn btn-primary" *ngIf="!checkJobApplStatusFunc(job)" (click)="applyForJobFunc(job)">Apply</button>
+                  <button type="button" class="btn btn-primary" disabled *ngIf="checkJobApplStatusFunc(job)">Applied</button>
                 </ng-container>
                 <button type="button" class="btn btn-success ml-3" (click)="showDetailFunc(job, true)">View</button>
               </td>
@@ -61,6 +67,6 @@
   </div>
 
   <div class="position-absolute w-100 h-100 container-fluid py-3 px-5 bg-white anim" style="top: 0px;" [style.transform]="showJobDetailFlag ? 'translateX(0%)' : 'translateX(100%)'">
-    <app-job-detail-view class="w-100 h-100" *ngIf="showJobDetailFlag" [jobObj]="viewJobObj" (callBackFunc)="showDetailFunc(null, false)"></app-job-detail-view>
+    <app-job-detail-view class="w-100 h-100" *ngIf="showJobDetailFlag" [jobObj]="viewJobObj" (callBackFunc)="showDetailFunc(null, false)" (applyForJob)="applyForJobFunc($event)"></app-job-detail-view>
   </div>
 </div>

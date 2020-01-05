@@ -3,6 +3,7 @@ import { LoginSignupService } from "../login-signup.service";
 import { Router } from "@angular/router";
 import { ngxCsv } from "ngx-csv/ngx-csv";
 import { DatePipe } from '@angular/common';
+import { UpdateJobService } from '../update-job.service';
 
 @Component({
   selector: "app-job-listing",
@@ -14,7 +15,8 @@ export class JobListingComponent implements OnInit {
   constructor(
     private loginSignup: LoginSignupService,
     private router: Router,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private updateJobService: UpdateJobService
   ) {}
 
   jobArr = new Array(20);
@@ -36,6 +38,9 @@ export class JobListingComponent implements OnInit {
       this.jobArr = JSON.parse(previousData);
       this.sortKey = "updated_on";
       this.ascendingOrder = true;
+      if(this.viewJobObj) {
+        this.viewJobObj = this.jobArr.find(j => j.job_id == this.viewJobObj.job_id);
+      }
     } else {
       this.jobArr = [];
     }
@@ -94,6 +99,15 @@ export class JobListingComponent implements OnInit {
   showDetailFunc(iObj, iFlag) {
     this.viewJobObj = iObj;
     this.showJobDetailFlag = iFlag;
+  }
+
+  applyForJobFunc(iJob) {
+    this.updateJobService.updateJobFunc(iJob, this.currentUser);
+    this.fetchJobsFunc();
+  }
+
+  checkJobApplStatusFunc(iJob) {
+    return iJob.applied_users.includes(this.currentUser.user_id);
   }
 
   exportJobFunc() {

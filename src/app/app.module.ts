@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginSignupService } from './login-signup.service';
 import { AuthenticateGuard } from './authenticate.guard';
 import { NotifyService } from './notify.service';
+import { UpdateJobService } from './update-job.service';
 
 @NgModule({
   imports:      [
@@ -16,6 +17,6 @@ import { NotifyService } from './notify.service';
     ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [LoginSignupService, AuthenticateGuard, NotifyService]
+  providers: [LoginSignupService, AuthenticateGuard, NotifyService, UpdateJobService]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { LoginSignupService } from "../login-signup.service";
 
 @Component({
@@ -6,14 +6,19 @@ import { LoginSignupService } from "../login-signup.service";
   templateUrl: './job-detail-view.component.html',
   styleUrls: ['./job-detail-view.component.css']
 })
-export class JobDetailViewComponent implements OnInit {
+export class JobDetailViewComponent implements OnInit, OnChanges {
 
   constructor(private loginSignup: LoginSignupService) { }
 
   @Input() jobObj: any = {};
   @Output() callBackFunc = new EventEmitter();
+  @Output() applyForJob = new EventEmitter();
   cardViewArr = [];
-  currentUser = {};
+  currentUser: any = {};
+
+  ngOnChanges(change: SimpleChanges) {
+    console.log(change);
+  }
 
   ngOnInit() {
     this.currentUser = JSON.parse(this.loginSignup.loggedInUserDataFunc());
@@ -46,8 +51,12 @@ export class JobDetailViewComponent implements OnInit {
     }
   }
 
-  applyForPostFunc() {
-    
+  applyForJobFunc() {
+    this.applyForJob.emit(this.jobObj);
+  }
+
+  checkJobApplStatusFunc(iJob) {
+    return iJob.applied_users.includes(this.currentUser.user_id);
   }
 
 }

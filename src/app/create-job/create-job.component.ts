@@ -255,6 +255,8 @@ export class CreateJobComponent implements OnInit {
     let finalData = this.formatDataFunc(iData);
     finalData.created_on = new Date().toISOString();
     finalData.updated_on = new Date().toISOString();
+    finalData.applied_count = 0;
+    finalData.applied_users = [];
     finalData.job_id = new Date().getTime();
     let previousData = localStorage.getItem("postedJobs");
     if (previousData) {
@@ -278,6 +280,8 @@ export class CreateJobComponent implements OnInit {
         newDataObj.job_id = backupJobObj.job_id;
         newDataObj.created_on = backupJobObj.created_on;
         newDataObj.updated_on = new Date().toISOString();
+        newDataObj.applied_count = backupJobObj.applied_count;
+        newDataObj.applied_users = backupJobObj.applied_users;
         let jobArr = [];
         let previousData = localStorage.getItem("postedJobs");
         if (previousData) {

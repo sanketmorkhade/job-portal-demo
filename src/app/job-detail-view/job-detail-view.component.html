@@ -1,7 +1,8 @@
 <div style="height: 50px;">
   <div class="w-100 h-100 d-flex flex-row" [ngClass]="{'justify-content-between': currentUser.user_type == 2}">
     <button type="button" class="btn btn-primary" style="height: 38px;" (click)="closeDetialViewFunc();">Back</button>
-    <button type="button" class="btn btn-primary" style="height: 38px;" (click)="applyForPostFunc();" *ngIf="currentUser.user_type == 2">Apply</button>
+    <button type="button" class="btn btn-primary" style="height: 38px;" (click)="applyForJobFunc();" *ngIf="currentUser.user_type == 2 && !checkJobApplStatusFunc(jobObj)">Apply</button>
+    <button type="button" class="btn btn-primary" style="height: 38px;" disabled *ngIf="currentUser.user_type == 2 && checkJobApplStatusFunc(jobObj)">Applied</button>
   </div>
 </div>
 <div style="height: calc(100% - 50px)">
