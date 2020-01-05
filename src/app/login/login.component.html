@@ -26,7 +26,7 @@
 
   <div class="card" style="width: 35%;" *ngIf="mode == 'signup'">
     <div class="card-header text-center">
-      Signup As a {{userType == 1 ? 'Recruiter' : 'Employee'}}
+      Signup As a {{userType == 1 ? 'Recruiter' : 'Candidate'}}
     </div>
     <div class="card-body">
       <form #signForm="ngForm" (ngSubmit)="signupUserFunc(signForm)">
