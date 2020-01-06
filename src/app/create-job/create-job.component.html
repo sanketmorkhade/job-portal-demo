@@ -17,45 +17,49 @@
 					<div class="container w-100 oh p-3" style="height: calc(100% - 50px)">
 						<form [formGroup]="jobPostForm" class="h-100 w-100">
 							<div class="h-100 d-flex flex-row anim" style="width: 400%;" [style.transform]="'translateX(' + (sliderIndex * -25) + '%)' ">
-								<div class="h-100 w-25 px-5 overflow-auto" formGroupName="companyDetails">
-                  <div class="form-group">
-                    <label for="jobTitle">Job Title</label>
-                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'job_title')}" formControlName="job_title" id="jobTitle">
-                    <div class="invalid-feedback">{{getErrorMsgForTitleFunc('companyDetails', 'job_title')}}</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="companyName">Company Name</label>
-                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'company_name')}" formControlName="company_name" id="companyName">
-                    <div class="invalid-feedback">Please provide valid company name.</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="cityLoc">Location</label>
-                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'location')}" formControlName="location" id="cityLoc">
-                    <div class="invalid-feedback">Please provide valid location.</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="state">State</label>
-                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'state')}" formControlName="state" id="state">
-                    <div class="invalid-feedback">Please provide valid state.</div>
-                  </div>
-                  <div class="form-group">
-                    <label for="country">Country</label>
-                    <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'country')}" formControlName="country" id="country">
-                    <div class="invalid-feedback">Please provide valid country.</div>
+								<div class="h-100 w-25 px-4" formGroupName="companyDetails">
+                  <div class="h-100 w-100 px-3 overflow-auto">
+                    <div class="form-group">
+                      <label for="jobTitle">Job Title</label>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'job_title')}" formControlName="job_title" id="jobTitle">
+                      <div class="invalid-feedback">{{getErrorMsgForTitleFunc('companyDetails', 'job_title')}}</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="companyName">Company Name</label>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'company_name')}" formControlName="company_name" id="companyName">
+                      <div class="invalid-feedback">Please provide valid company name.</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="cityLoc">Location</label>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'location')}" formControlName="location" id="cityLoc">
+                      <div class="invalid-feedback">Please provide valid location.</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'state')}" formControlName="state" id="state">
+                      <div class="invalid-feedback">Please provide valid state.</div>
+                    </div>
+                    <div class="form-group">
+                      <label for="country">Country</label>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('companyDetails', 'country')}" formControlName="country" id="country">
+                      <div class="invalid-feedback">Please provide valid country.</div>
+                    </div>
                   </div>
                 </div>
-								<div class="h-100 w-25 px-5" formGroupName="jobDetails">
-                  <div class="form-group my-3">
-                    <label for="inputState">Job Type</label>
-                    <select id="inputState" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('jobDetails', 'job_type')}" formControlName="job_type">
-                      <option *ngFor="let type of jobTypeArr; let t = index">{{type}}</option>
-                    </select>
-                    <div class="invalid-feedback">Please provide valid job type.</div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="validationTextarea">Job Description</label>
-                    <textarea class="form-control" rows="12" [ngClass]="{'is-invalid': checkValidationFunc('jobDetails', 'job_description')}" formControlName="job_description" id="validationTextarea" placeholder="Describe the job roles, responsibilities, required experience, skills and education." required></textarea>
-                    <div class="invalid-feedback">Please provide valid job description.</div>
+								<div class="h-100 w-25 px-4" formGroupName="jobDetails">
+                  <div class="h-100 w-100 px-3 overflow-auto">
+                    <div class="form-group my-3">
+                      <label for="inputState">Job Type</label>
+                      <select id="inputState" class="form-control" [ngClass]="{'is-invalid': checkValidationFunc('jobDetails', 'job_type')}" formControlName="job_type">
+                        <option *ngFor="let type of jobTypeArr; let t = index">{{type}}</option>
+                      </select>
+                      <div class="invalid-feedback">Please provide valid job type.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="validationTextarea">Job Description</label>
+                      <textarea class="form-control" rows="12" [ngClass]="{'is-invalid': checkValidationFunc('jobDetails', 'job_description')}" formControlName="job_description" id="validationTextarea" placeholder="Describe the job roles, responsibilities, required experience, skills and education." required></textarea>
+                      <div class="invalid-feedback">Please provide valid job description.</div>
+                    </div>
                   </div>
                 </div>
 								<div class="h-100 w-25 px-5" formGroupName="experienceDetails">
@@ -64,7 +68,7 @@
                     <button class="btn btn-outline-secondary" type="button" [disabled]="sliderIndex !== 2" (click)="addQuestionFunc()" id="button-addon2">Add</button>
                   </div>
 
-                  <div class="w-100 oh" style="max-height: 250px; overflow-y: auto;">
+                  <div class="w-100 oh" style="max-height: 200px; overflow-y: auto;">
                     <div formArrayName="experience" *ngFor="let item of jobPostForm.get('experienceDetails').get('experience').controls; let e = index;">
                       <div [formGroupName]="e">
                         <div class="input-group mb-3">
