@@ -14,7 +14,7 @@
     "bootstrap": "4.4.1",
     "core-js": "2.6.11",
     "export-to-csv": "^0.2.1",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "ngx-csv": "^0.3.1",
     "popper.js": "1.12.9",
     "rxjs": "6.5.4",
